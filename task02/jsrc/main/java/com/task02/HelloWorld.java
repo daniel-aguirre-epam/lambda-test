@@ -83,7 +83,7 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
 		}
 
 		static Body error(String error) {
-			return new Body(null, 400);
+			return new Body(error, 400);
 		}
 
 		public String getMessage() {
