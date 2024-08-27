@@ -16,8 +16,6 @@ import com.syndicate.deployment.model.RetentionSetting;
 import com.syndicate.deployment.model.lambda.url.AuthType;
 import com.syndicate.deployment.model.lambda.url.InvokeMode;
 
-import java.util.Map;
-
 @LambdaHandler(
     lambdaName = "hello_world",
 	roleName = "hello_world-role",
@@ -72,28 +70,28 @@ public class HelloWorld implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
 
 
 	private static class Body {
+		private final int statusCode;
 		private final String message;
-		private final String error;
 
-		public Body(String message, String error) {
+		public Body(String message, int statusCode) {
 			this.message = message;
-			this.error = error;
+			this.statusCode = statusCode;
 		}
 
 		static Body ok() {
-			return new Body("Hello from Lambda", null);
+			return new Body("Hello from Lambda", 200);
 		}
 
 		static Body error(String error) {
-			return new Body(null, error);
+			return new Body(null, 400);
 		}
 
 		public String getMessage() {
 			return message;
 		}
 
-		public String getError() {
-			return error;
+		public int getStatusCode() {
+			return statusCode;
 		}
 	}
 }
