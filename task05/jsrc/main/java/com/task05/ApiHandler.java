@@ -49,7 +49,7 @@ public class ApiHandler implements RequestHandler<Map<Object, Object>, APIGatewa
 
 	public ApiHandler() {
 		dynamoDbClient = DynamoDbEnhancedClient.create();
-		table = dynamoDbClient.table("cmtr-326d7d29-Events", TableSchema.fromBean(DynamoDbItem.class));
+		table = dynamoDbClient.table("cmtr-326d7d29-Events-test", TableSchema.fromBean(DynamoDbItem.class));
 	}
 
 	public APIGatewayV2HTTPResponse handleRequest(Map<Object, Object> event, Context context) {
