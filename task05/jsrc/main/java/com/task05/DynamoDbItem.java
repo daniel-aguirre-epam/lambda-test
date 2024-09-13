@@ -24,7 +24,7 @@ public class DynamoDbItem {
         this.body = body;
     }
 
-    @DynamoDbPartitionKey(name = "id")
+    @DynamoDbPartitionKey
     public String getId() {
         return id;
     }
