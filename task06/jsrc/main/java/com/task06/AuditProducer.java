@@ -67,7 +67,13 @@ public class AuditProducer implements RequestHandler<Map<Object, Object>, Void> 
 			String key = (String) keyMap.values().stream().findFirst().orElse("");
 
 			Map<String, Object> valueMap = (Map<String, Object>) newImage.get("value");
-			String value = (String) valueMap.values().stream().findFirst().orElse("");
+			Object value = valueMap.entrySet().stream().map(entry -> {
+				if (entry.getKey().equals("N")){
+					return (Integer) entry.getValue();
+				} else {
+					return entry.getValue().toString();
+				}
+			}).findFirst().orElse(null);
 
 			if (eventName.equals("INSERT")){
 
@@ -83,35 +89,23 @@ public class AuditProducer implements RequestHandler<Map<Object, Object>, Void> 
 				String oldKey = (String) oldImageKeyMap.values().stream().findFirst().orElse("");
 
 				Map<String, Object> oldImageValueMap = (Map<String, Object>) newImage.get("value");
-				String oldValue = (String) oldImageValueMap.values().stream().findFirst().orElse("");
+				Object oldValue = oldImageValueMap.entrySet().stream().map(entry -> {
+					if (entry.getKey().equals("N")){
+						return (Integer) entry.getValue();
+					} else {
+						return entry.getValue().toString();
+					}
+				}).findFirst().orElse(null);
 
 				DynamoDbItem item = new DynamoDbItem(UUID.randomUUID().toString(), key,
 						DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()), "value",
-						oldValue, value);
+						oldValue.toString(), value.toString());
 				table.putItem(item);
 			}
 
 
 		});
 
-
-
-		/*
-		Map<String, AttributeValue> oldImage = request.getDynamodb().getOldImage();
-		Map<String, AttributeValue> newImage = request.getDynamodb().getNewImage();
-
-
-		if(oldImage == null || oldImage.isEmpty()) {
-			DynamoDbItem item = new DynamoDbItem(UUID.randomUUID().toString(), newImage.get("key").getS(),
-					DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()), gson.toJson(newImage));
-			table.putItem(item);
-
-		} else {
-			DynamoDbItem item = new DynamoDbItem(UUID.randomUUID().toString(), newImage.get("key").getS(),
-					DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()), "value", newImage.get("value").getS(),
-					oldImage.get("value").getS());
-			table.putItem(item);
-		}*/
 		return null;
 	}
 }
