@@ -80,7 +80,7 @@ public class AuditProducer implements RequestHandler<Map<Object, Object>, Void> 
 
 
 				DynamoDbItem item = new DynamoDbItem(UUID.randomUUID().toString(), key,
-						DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()), gson.toJson(Map.of("key", key, "value", value)));
+						DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()), Map.of("key", key, "value", value));
 				table.putItem(item);
 			} else if(eventName.equals("MODIFY")){
 				Map<String, Object> oldImage = (Map<String, Object>) dynamodb.get("OldImage");
@@ -99,7 +99,7 @@ public class AuditProducer implements RequestHandler<Map<Object, Object>, Void> 
 
 				DynamoDbItem item = new DynamoDbItem(UUID.randomUUID().toString(), key,
 						DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()), "value",
-						oldValue.toString(), value.toString());
+						value.toString(), oldValue.toString());
 				table.putItem(item);
 			}
 

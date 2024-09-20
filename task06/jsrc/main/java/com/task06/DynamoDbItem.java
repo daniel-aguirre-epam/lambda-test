@@ -10,13 +10,13 @@ public class DynamoDbItem {
     private String itemKey;
     private String modificationTime;
     private String updatedAttribute;
-    private String newValue;
+    private Object newValue;
     private String oldValue;
 
     public DynamoDbItem() {
     }
 
-    public DynamoDbItem(String id, String itemKey, String modificationTime, String newValue) {
+    public DynamoDbItem(String id, String itemKey, String modificationTime, Object newValue) {
         this.id = id;
         this.itemKey = itemKey;
         this.modificationTime = modificationTime;
@@ -57,11 +57,11 @@ public class DynamoDbItem {
         this.modificationTime = modificationTime;
     }
 
-    public String getNewValue() {
+    public Object getNewValue() {
         return newValue;
     }
 
-    public void setNewValue(String newValue) {
+    public void setNewValue(Object newValue) {
         this.newValue = newValue;
     }
 
