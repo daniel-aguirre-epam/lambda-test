@@ -66,10 +66,10 @@ public class AuditProducer implements RequestHandler<Map<Object, Object>, Void> 
 			Map<String, Object> keyMap = (Map<String, Object>) newImage.get("key");
 			String key = (String) keyMap.values().stream().findFirst().orElse("");
 
-			Map<String, Object> valueMap = (Map<String, Object>) newImage.get("value");
+			Map<String, String> valueMap = (Map<String, String>) newImage.get("value");
 			Object value = valueMap.entrySet().stream().map(entry -> {
 				if (entry.getKey().equals("N")){
-					return (Integer) entry.getValue();
+					return Integer.parseInt(entry.getValue());
 				} else {
 					return entry.getValue().toString();
 				}
@@ -85,13 +85,13 @@ public class AuditProducer implements RequestHandler<Map<Object, Object>, Void> 
 			} else if(eventName.equals("MODIFY")){
 				Map<String, Object> oldImage = (Map<String, Object>) dynamodb.get("OldImage");
 
-				Map<String, Object> oldImageKeyMap = (Map<String, Object>) newImage.get("key");
+				Map<String, Object> oldImageKeyMap = (Map<String, Object>) oldImage.get("key");
 				String oldKey = (String) oldImageKeyMap.values().stream().findFirst().orElse("");
 
-				Map<String, Object> oldImageValueMap = (Map<String, Object>) newImage.get("value");
+				Map<String, String> oldImageValueMap = (Map<String, String>) oldImage.get("value");
 				Object oldValue = oldImageValueMap.entrySet().stream().map(entry -> {
 					if (entry.getKey().equals("N")){
-						return (Integer) entry.getValue();
+						return Integer.parseInt(entry.getValue());
 					} else {
 						return entry.getValue().toString();
 					}
