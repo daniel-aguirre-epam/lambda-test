@@ -52,7 +52,7 @@ public class AuditProducer implements RequestHandler<Map<Object, Object>, Void> 
 
 	public AuditProducer() {
 		dynamoDbClient = DynamoDbEnhancedClient.create();
-		table = dynamoDbClient.table("cmtr-326d7d29-Audit", TableSchema.fromBean(DynamoDbItem.class));
+		table = dynamoDbClient.table("cmtr-326d7d29-Audit-test", TableSchema.fromBean(DynamoDbItem.class));
 	}
 
 	public Void handleRequest(Map<Object, Object> event, Context context) {
