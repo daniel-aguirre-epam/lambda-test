@@ -19,7 +19,8 @@ public class ObjectAttributeConverter implements AttributeConverter<Object> {
         if (input instanceof String) {
             return AttributeValue.builder().s((String) input).build();
         } else if (input instanceof Map) {
-            return AttributeValue.builder().s(gson.toJson(input)).build();
+            return AttributeValue.builder().m(((Map<String, AttributeValue>) input).entrySet().stream()
+                    .collect(Collectors.toMap(Map.Entry::getKey, entry -> transformFrom(entry.getValue())))).build();
         } else if (input instanceof Number) {
             return AttributeValue.builder().n(input.toString()).build();
         }
