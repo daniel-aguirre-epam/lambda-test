@@ -80,18 +80,6 @@ public class AuditProducer implements RequestHandler<Map<Object, Object>, Void> 
 				DynamoDbItem item = new DynamoDbItem(UUID.randomUUID().toString(), key,
 						DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()), Map.of("key", key, "value", value));
 
-//				dynamoDbClient.batchWriteItem(builder -> builder.requestItems(Map.of("cmtr-326d7d29-Audit",
-//								List.of(WriteRequest.builder().putRequest(
-//										PutRequest.builder()
-//												.item(Map.of(
-//														"id", AttributeValue.builder().s(UUID.randomUUID().toString()).build(),
-//														"itemKey", AttributeValue.builder().s(key).build(),
-//														"modificationTime", AttributeValue.builder().s(DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now())).build(),
-//														"newValue", AttributeValue.builder().m(Map.of(key, value)).build()
-//												)).build()
-//
-//								).build()))).build());
-
 				table.putItem(item);
 
 			} else if(eventName.equals("MODIFY")){
@@ -111,21 +99,7 @@ public class AuditProducer implements RequestHandler<Map<Object, Object>, Void> 
 
 				DynamoDbItem item = new DynamoDbItem(UUID.randomUUID().toString(), key,
 						DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now()), "value",
-						value.toString(), oldValue.toString());
-
-//				dynamoDbClient.batchWriteItem(builder -> builder.requestItems(Map.of("cmtr-326d7d29-Audit",
-//						List.of(WriteRequest.builder().putRequest(
-//								PutRequest.builder()
-//										.item(Map.of(
-//												"id", AttributeValue.builder().s(UUID.randomUUID().toString()).build(),
-//												"itemKey", AttributeValue.builder().s(key).build(),
-//												"modificationTime", AttributeValue.builder().s(DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.now())).build(),
-//												"updatedAttribute", AttributeValue.builder().s("value").build(),
-//												"newValue", value,
-//												"oldValue", oldValue
-//										)).build()
-//
-//						).build()))).build());
+						value, oldValue);
 
 				table.putItem(item);
 			}

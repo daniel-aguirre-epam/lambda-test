@@ -24,7 +24,7 @@ public class DynamoDbItem {
         this.newValue = newValue;
     }
 
-    public DynamoDbItem(String id, String itemKey, String modificationTime, String updatedAttribute, String newValue, Object oldValue) {
+    public DynamoDbItem(String id, String itemKey, String modificationTime, String updatedAttribute, Object newValue, Object oldValue) {
         this.id = id;
         this.itemKey = itemKey;
         this.modificationTime = modificationTime;
