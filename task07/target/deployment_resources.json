@@ -1,0 +1,38 @@
+{
+  "uuid_generator" : {
+    "name" : "uuid_generator",
+    "lambda_path" : "/Users/daniel_aguirre1/path/to/venv/task07",
+    "version" : "1.0.0",
+    "func_name" : "com.task07.UuidGenerator",
+    "deployment_package" : "task07-1.0.0.jar",
+    "resource_type" : "lambda",
+    "runtime" : "java11",
+    "architectures" : [ "x86_64" ],
+    "iam_role_name" : "uuid_generator-role",
+    "memory" : 1024,
+    "timeout" : 300,
+    "subnet_ids" : [ ],
+    "security_group_ids" : [ ],
+    "dependencies" : [ {
+      "resource_name" : "uuid_trigger",
+      "resource_type" : "cloudwatch_rule"
+    } ],
+    "event_sources" : [ {
+      "resource_type" : "cloudwatch_rule_trigger",
+      "target_rule" : "uuid_trigger"
+    } ],
+    "env_variables" : { },
+    "publish_version" : true,
+    "layers" : [ "sdk-layer" ],
+    "logs_expiration" : "${logs_expiration}",
+    "snap_start" : "None"
+  },
+  "sdk-layer" : {
+    "name" : "sdk-layer",
+    "runtimes" : [ "java11" ],
+    "resource_type" : "lambda_layer",
+    "deployment_package" : "sdk-layer-assembly.zip",
+    "libraries" : [ "lib/gson-2.10.1.jar" ],
+    "architectures" : [ "arm64" ]
+  }
+}
