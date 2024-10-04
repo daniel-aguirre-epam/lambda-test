@@ -75,7 +75,7 @@ public class Processor implements RequestHandler<APIGatewayV2HTTPEvent, APIGatew
 		context.getLogger().log("Method: " + method);
 		context.getLogger().log("Path: " + path);
 
-		if (method.equals("GET") && path.equals("/weather")) {
+		if (method.equals("GET") && path.equals("/")) {
 			OpenMeteoClient client = new OpenMeteoClient();
 			String weatherInfoInJson = client.getWeather();
 			WeatherResponse weatherResponse = gson.fromJson(weatherInfoInJson, WeatherResponse.class);
