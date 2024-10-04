@@ -2,6 +2,7 @@ package com.task09;
 
 
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbConvertedBy;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class WeatherForecast {
         this.id = id;
     }
 
+    @DynamoDbConvertedBy(ForecastAttributeConverter.class)
     public Forecast getForecast() {
         return forecast;
     }
