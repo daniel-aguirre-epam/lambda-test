@@ -72,6 +72,9 @@ public class Processor implements RequestHandler<APIGatewayV2HTTPEvent, APIGatew
 		String method = requestEvent.getRequestContext().getHttp().getMethod();
 		String path = requestEvent.getRequestContext().getHttp().getPath();
 
+		context.getLogger().log("Method: " + method);
+		context.getLogger().log("Path: " + path);
+
 		if (method.equals("GET") && path.equals("/weather")) {
 			OpenMeteoClient client = new OpenMeteoClient();
 			String weatherInfoInJson = client.getWeather();
@@ -85,8 +88,9 @@ public class Processor implements RequestHandler<APIGatewayV2HTTPEvent, APIGatew
 			WeatherForecast weatherForecast = new WeatherForecast();
 			weatherForecast.setForecast(forecast);
 			weatherForecast.setId(UUID.randomUUID().toString());
-
+			context.getLogger().log("Weather forecast: " + weatherForecast);
 			table.putItem(weatherForecast);
+			context.getLogger().log("Weather forecast saved to the table");
 		}
 
 		return  APIGatewayV2HTTPResponse.builder()
