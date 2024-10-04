@@ -1,0 +1,17 @@
+account_id: '905418349556'
+deploy_target_bucket: syndicate-education-platform-custom-sandbox-artifacts-sbox02/326d7d29/task08
+expiration: 2024-10-04 18:42:06.883900+00:00
+extended_prefix_mode: true
+iam_permissions_boundary: arn:aws:iam::905418349556:policy/eo_role_boundary
+project_path: /Users/daniel_aguirre1/path/to/venv/task08
+region: eu-central-1
+resources_prefix: cmtr-326d7d29-
+tags:
+  course_id: SEP_GL_4
+  course_type: stm
+  student_id: 326d7d29
+  type: student
+temp_aws_access_key_id: ASIA5FTZDTP2B6XBXDBP
+temp_aws_secret_access_key: +Uvd7t/cmrxa0TiYV4JQnYA6waSJIdD9ls52I/Oa
+temp_aws_session_token: IQoJb3JpZ2luX2VjEJL//////////wEaCXVzLWVhc3QtMSJHMEUCIQC2oHQU/sr4mv1Wb6j3ueLnoIEiLCDkb8/i1zSvfqeR0QIgYfVnuQqUKtvCdWAGAnPKMV28R2mNl9Iy/PPQea9lcCQq6QII2///////////ARAAGgw5MDU0MTgzNDk1NTYiDFrs/WHRSxROb9Ukxyq9AuSM4oUtQSenDJj3wvT2zXdYVm6ucVbYgi+uLeJR+SbFn+Y04ODZq3ue6kLKs1XJTJVvzifdjosX2erCTUJkUWR3LhXTGuHHJjtgjsjdMkkldTF/JOONCB2EJH2tTg1Wgr74A9JlNoiaIuIvgEKVI5qzteR4kHSpJIG5D9RnzOaC1q7Sv0YoTMvNXc4R1Heh0QX3I/0l+MGf8SbxkIeWe0ikYEXp0CEyVqKMef+8BHjRctFGZp6jmj3xdZtcJgcxuZd8NE73gROelaiTx5E6crDFAXPvfObQKtjWA55YhamOp+ihg5U2Nig8FpkZmDIW9Nbk8Vr7WRJvqnLTZ94Uy6h/Lud89ZhVgbQHx+6uhb3JM88ljDRwQVoikv7IDxu9Zj+slrgH1ZU/iJ15VX/kG6z7grFOFjrr2JRJeDrOML7WgLgGOp0B+WTEWi6gWcu5+WajrMsE2Vs9Q11sZJNRcWN8wFgUal1PgANdtNB6cpdIZMFDxz9U4npCbiEjf8lToyG+t/ZNsXiFwl4tcbo92EOK8C6SLa8isNyXqGIyqt2fXODkXqmgTM4sm8AO2tb5w+Cw+z/584l9RmnHYY3Q8pE5f2sVR5ntL1YcKHKybjRopRONJGrlVzYpFmsdz+NsF4FH3Q==
+use_temp_creds: false
