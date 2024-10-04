@@ -1,0 +1,40 @@
+{
+  "processor" : {
+    "name" : "processor",
+    "lambda_path" : "/Users/daniel_aguirre1/lambda-test/task09",
+    "version" : "1.0.0",
+    "func_name" : "com.task09.Processor",
+    "deployment_package" : "task09-1.0.0.jar",
+    "resource_type" : "lambda",
+    "runtime" : "java11",
+    "architectures" : [ "x86_64" ],
+    "iam_role_name" : "processor-role",
+    "memory" : 1024,
+    "timeout" : 300,
+    "subnet_ids" : [ ],
+    "security_group_ids" : [ ],
+    "dependencies" : [ ],
+    "event_sources" : [ ],
+    "env_variables" : {
+      "table" : "${target_table}"
+    },
+    "tracing_mode" : "Active",
+    "publish_version" : true,
+    "alias" : "learn",
+    "layers" : [ "sdk_layer" ],
+    "logs_expiration" : "${logs_expiration}",
+    "snap_start" : "None",
+    "url_config" : {
+      "auth_type" : "NONE",
+      "invoke_mode" : "BUFFERED"
+    }
+  },
+  "sdk_layer" : {
+    "name" : "sdk_layer",
+    "runtimes" : [ "java11" ],
+    "resource_type" : "lambda_layer",
+    "deployment_package" : "sdk_layer-assembly.jar",
+    "libraries" : [ "lib/open-meteo-client-1.0.jar", "lib/gson-2.10.1.jar" ],
+    "architectures" : [ "x86_64" ]
+  }
+}
