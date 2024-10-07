@@ -6,6 +6,7 @@ import software.amazon.awssdk.enhanced.dynamodb.AttributeValueType;
 import software.amazon.awssdk.enhanced.dynamodb.EnhancedType;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,10 @@ public class ForecastAttributeConverter implements AttributeConverter<Object> {
                     .collect(Collectors.toMap(Map.Entry::getKey, entry -> transformFrom(entry.getValue())))).build();
         } else if (input instanceof Number) {
             return AttributeValue.builder().n(input.toString()).build();
+        } else if (input instanceof List) {
+            return AttributeValue.builder().ns(((List<?>) input).stream()
+                    .map(Object::toString)
+                    .collect(Collectors.toList())).build();
         }
         throw new IllegalArgumentException("Unsupported type: " + input.getClass().getName());
     }
