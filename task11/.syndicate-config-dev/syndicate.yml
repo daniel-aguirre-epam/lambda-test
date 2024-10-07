@@ -1,0 +1,8 @@
+account_id: '905418349556'
+deploy_target_bucket: syndicate-education-platform-custom-sandbox-artifacts-sbox02/326d7d29/task11
+extended_prefix_mode: true
+iam_permissions_boundary: arn:aws:iam::905418349556:policy/eo_role_boundary
+project_path: /Users/daniel_aguirre1/lambda-test/task11
+region: eu-central-1
+resources_prefix: cmtr-326d7d29-
+use_temp_creds: false
