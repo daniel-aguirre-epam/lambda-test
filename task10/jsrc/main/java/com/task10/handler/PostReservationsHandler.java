@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+
 public class PostReservationsHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     private DynamoDbTable<Reservations> reservationsTable;
@@ -72,11 +73,14 @@ public class PostReservationsHandler implements RequestHandler<APIGatewayProxyRe
         }
     }
 
-    private boolean isTableAvailable(Reservations reservations) {
+
+
+    private  boolean isTableAvailable(Reservations reservations) {
         LocalTime startTime = LocalTime.parse( reservations.getSlotTimeStart());
         LocalTime endTime = LocalTime.parse( reservations.getSlotTimeEnd());
+
         return reservationsTable.scan().items().stream().noneMatch(r -> {
-            if (r.getTableNumber() == reservations.getTableNumber() || r.getDate().equals(reservations.getDate())) {
+            if (r.getTableNumber() != reservations.getTableNumber() || !r.getDate().equals(reservations.getDate())) {
                 return false;
             }
             LocalTime anotherStartTime = LocalTime.parse( r.getSlotTimeStart());
