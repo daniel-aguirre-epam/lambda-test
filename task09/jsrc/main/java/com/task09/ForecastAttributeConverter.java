@@ -1,42 +1,58 @@
 package com.task09;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import software.amazon.awssdk.enhanced.dynamodb.AttributeConverter;
-import software.amazon.awssdk.enhanced.dynamodb.AttributeConverterProvider;
 import software.amazon.awssdk.enhanced.dynamodb.AttributeValueType;
 import software.amazon.awssdk.enhanced.dynamodb.EnhancedType;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ForecastAttributeConverter implements AttributeConverter<WeatherForecast.Forecast> {
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class ForecastAttributeConverter implements AttributeConverter<Object> {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public AttributeValue transformFrom(WeatherForecast.Forecast input) {
-        try {
-            String json = objectMapper.writeValueAsString(input);
-            return AttributeValue.builder().s(json).build();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to convert Forecast to AttributeValue", e);
+    public AttributeValue transformFrom(Object input) {
+        if (input instanceof String) {
+            return AttributeValue.builder().s((String) input).build();
+        } else if (input instanceof Map) {
+            return AttributeValue.builder().m(((Map<String, AttributeValue>) input).entrySet().stream()
+                    .collect(Collectors.toMap(Map.Entry::getKey, entry -> transformFrom(entry.getValue())))).build();
+        } else if (input instanceof Number) {
+            return AttributeValue.builder().n(input.toString()).build();
         }
+        throw new IllegalArgumentException("Unsupported type: " + input.getClass().getName());
     }
 
     @Override
-    public WeatherForecast.Forecast transformTo(AttributeValue input) {
-        try {
-            return objectMapper.readValue(input.s(), WeatherForecast.Forecast.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to convert AttributeValue to Forecast", e);
+    public Object transformTo(AttributeValue attributeValue) {
+        if (attributeValue.s() != null) {
+            return attributeValue.s();
+        } else if (attributeValue.m() != null) {
+            return attributeValue.m().entrySet().stream()
+                    .collect(Collectors.toMap(Map.Entry::getKey, entry -> {
+                        AttributeValue value = entry.getValue();
+                        if (value.s() != null) {
+                            return value.s();
+                        } else if (value.n() != null) {
+                            return value.n();
+                        }
+                        throw new IllegalArgumentException("Unsupported AttributeValue type");
+                    }));
         }
+
+        throw new IllegalArgumentException("Unsupported AttributeValue type");
     }
 
     @Override
-    public EnhancedType<WeatherForecast.Forecast> type() {
-        return EnhancedType.of(WeatherForecast.Forecast.class);
+    public EnhancedType<Object> type() {
+        return EnhancedType.of(Object.class);
     }
 
     @Override
     public AttributeValueType attributeValueType() {
-        return AttributeValueType.S;
+        return AttributeValueType.M;
     }
 }
 

@@ -12,7 +12,7 @@ import java.util.UUID;
 public class WeatherForecast {
 
     private String id;
-    private Forecast forecast;
+    private Object forecast;
 
     public WeatherForecast() {
         this.id = UUID.randomUUID().toString();
@@ -28,11 +28,11 @@ public class WeatherForecast {
     }
 
     @DynamoDbConvertedBy(ForecastAttributeConverter.class)
-    public Forecast getForecast() {
+    public Object getForecast() {
         return forecast;
     }
 
-    public void setForecast(Forecast forecast) {
+    public void setForecast(Object forecast) {
         this.forecast = forecast;
     }
 
