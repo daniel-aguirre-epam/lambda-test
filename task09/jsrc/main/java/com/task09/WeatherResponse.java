@@ -13,8 +13,8 @@ public class WeatherResponse {
     private double elevation;
     private CurrentUnits currentUnits;
     private Current current;
-    private WeatherForecast.HourlyUnits hourlyUnits;
-    private WeatherForecast.Hourly hourly;
+    private HourlyUnits hourlyUnits;
+    private Hourly hourly;
 
     public double getLatitude() {
         return latitude;
@@ -88,19 +88,19 @@ public class WeatherResponse {
         this.current = current;
     }
 
-    public WeatherForecast.HourlyUnits getHourlyUnits() {
+    public HourlyUnits getHourlyUnits() {
         return hourlyUnits;
     }
 
-    public void setHourlyUnits(WeatherForecast.HourlyUnits hourlyUnits) {
+    public void setHourlyUnits(HourlyUnits hourlyUnits) {
         this.hourlyUnits = hourlyUnits;
     }
 
-    public WeatherForecast.Hourly getHourly() {
+    public Hourly getHourly() {
         return hourly;
     }
 
-    public void setHourly(WeatherForecast.Hourly hourly) {
+    public void setHourly(Hourly hourly) {
         this.hourly = hourly;
     }
 
@@ -182,82 +182,82 @@ public class WeatherResponse {
         }
     }
 
-//    public static class HourlyUnits {
-//        private String time;
-//        private String temperature2m;
-//        private String relativeHumidity2m;
-//        private String windSpeed10m;
-//
-//        public String getTime() {
-//            return time;
-//        }
-//
-//        public void setTime(String time) {
-//            this.time = time;
-//        }
-//
-//        public String getTemperature2m() {
-//            return temperature2m;
-//        }
-//
-//        public void setTemperature2m(String temperature2m) {
-//            this.temperature2m = temperature2m;
-//        }
-//
-//        public String getRelativeHumidity2m() {
-//            return relativeHumidity2m;
-//        }
-//
-//        public void setRelativeHumidity2m(String relativeHumidity2m) {
-//            this.relativeHumidity2m = relativeHumidity2m;
-//        }
-//
-//        public String getWindSpeed10m() {
-//            return windSpeed10m;
-//        }
-//
-//        public void setWindSpeed10m(String windSpeed10m) {
-//            this.windSpeed10m = windSpeed10m;
-//        }
-//    }
-//
-//    public static class Hourly {
-//        private List<String> time;
-//        private List<Double> temperature2m;
-//        private List<Integer> relativeHumidity2m;
-//        private List<Double> windSpeed10m;
-//
-//        public List<String> getTime() {
-//            return time;
-//        }
-//
-//        public void setTime(List<String> time) {
-//            this.time = time;
-//        }
-//
-//        public List<Double> getTemperature2m() {
-//            return temperature2m;
-//        }
-//
-//        public void setTemperature2m(List<Double> temperature2m) {
-//            this.temperature2m = temperature2m;
-//        }
-//
-//        public List<Integer> getRelativeHumidity2m() {
-//            return relativeHumidity2m;
-//        }
-//
-//        public void setRelativeHumidity2m(List<Integer> relativeHumidity2m) {
-//            this.relativeHumidity2m = relativeHumidity2m;
-//        }
-//
-//        public List<Double> getWindSpeed10m() {
-//            return windSpeed10m;
-//        }
-//
-//        public void setWindSpeed10m(List<Double> windSpeed10m) {
-//            this.windSpeed10m = windSpeed10m;
-//        }
-//    }
+    public static class HourlyUnits {
+        private String time;
+        private String temperature2m;
+        private String relativeHumidity2m;
+        private String windSpeed10m;
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public String getTemperature2m() {
+            return temperature2m;
+        }
+
+        public void setTemperature2m(String temperature2m) {
+            this.temperature2m = temperature2m;
+        }
+
+        public String getRelativeHumidity2m() {
+            return relativeHumidity2m;
+        }
+
+        public void setRelativeHumidity2m(String relativeHumidity2m) {
+            this.relativeHumidity2m = relativeHumidity2m;
+        }
+
+        public String getWindSpeed10m() {
+            return windSpeed10m;
+        }
+
+        public void setWindSpeed10m(String windSpeed10m) {
+            this.windSpeed10m = windSpeed10m;
+        }
+    }
+
+    public static class Hourly {
+        private List<String> time;
+        private List<Double> temperature2m;
+        private List<Integer> relativeHumidity2m;
+        private List<Double> windSpeed10m;
+
+        public List<String> getTime() {
+            return time;
+        }
+
+        public void setTime(List<String> time) {
+            this.time = time;
+        }
+
+        public List<Double> getTemperature2m() {
+            return temperature2m;
+        }
+
+        public void setTemperature2m(List<Double> temperature2m) {
+            this.temperature2m = temperature2m;
+        }
+
+        public List<Integer> getRelativeHumidity2m() {
+            return relativeHumidity2m;
+        }
+
+        public void setRelativeHumidity2m(List<Integer> relativeHumidity2m) {
+            this.relativeHumidity2m = relativeHumidity2m;
+        }
+
+        public List<Double> getWindSpeed10m() {
+            return windSpeed10m;
+        }
+
+        public void setWindSpeed10m(List<Double> windSpeed10m) {
+            this.windSpeed10m = windSpeed10m;
+        }
+    }
 
 }
