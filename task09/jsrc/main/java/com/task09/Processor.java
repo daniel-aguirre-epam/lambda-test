@@ -80,10 +80,19 @@ public class Processor implements RequestHandler<APIGatewayV2HTTPEvent, APIGatew
 			String weatherInfoInJson = client.getWeather();
 			WeatherResponse weatherResponse = gson.fromJson(weatherInfoInJson, WeatherResponse.class);
 
-			WeatherForecast.Forecast forecast = new WeatherForecast.Forecast(weatherResponse.getElevation(),
-					weatherResponse.getGenerationtimeMs(), weatherResponse.getHourly(), weatherResponse.getHourlyUnits(),
-					weatherResponse.getLatitude(), weatherResponse.getLongitude(), weatherResponse.getTimezone(),
-					weatherResponse.getTimezoneAbbreviation(), weatherResponse.getUtcOffsetSeconds());
+			Map<String, Object> forecast = Map.of("elevation", weatherResponse.getElevation(),
+					"generationtime_ms", weatherResponse.getGenerationtimeMs(),
+					"hourly", Map.of(
+							"temperature_2m", weatherResponse.getHourly().getTemperature2m(),
+							"time", weatherResponse.getHourly().getTime()),
+					"hourly_units", Map.of("temperature_2m", weatherResponse.getHourlyUnits().getTemperature2m(),
+							"time", weatherResponse.getHourlyUnits().getTime()),
+					"latitude", weatherResponse.getLatitude(),
+					"longitude", weatherResponse.getLongitude(),
+					"timezone", weatherResponse.getTimezone(),
+					"timezone_abbreviation", weatherResponse.getTimezoneAbbreviation(),
+					"utc_offset_seconds", weatherResponse.getUtcOffsetSeconds());
+
 
 			WeatherForecast weatherForecast = new WeatherForecast();
 			weatherForecast.setForecast(forecast);

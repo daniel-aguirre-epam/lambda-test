@@ -36,7 +36,7 @@ public class WeatherForecast {
         this.forecast = forecast;
     }
 
-    public static class Forecast {
+    /*public static class Forecast {
         private double elevation;
         private double generationtimeMs;
         private Hourly hourly;
@@ -141,7 +141,7 @@ public class WeatherForecast {
         public void setUtcOffsetSeconds(int utcOffsetSeconds) {
             this.utcOffsetSeconds = utcOffsetSeconds;
         }
-    }
+    } */
 
     public static class Hourly {
         private List<Double> temperature2m;
