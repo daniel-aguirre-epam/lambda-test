@@ -32,7 +32,7 @@ public class GetTablesHandler implements RequestHandler<APIGatewayProxyRequestEv
                         .withBody(new ObjectMapper().writeValueAsString(Map.of("tables" , tablesTable.scan().items().stream().toList())));
 
             }
-            String tableId = requestEvent.getPath().substring(beginIndex);
+            String tableId = requestEvent.getPath().substring(beginIndex + 1);
 
             context.getLogger().log("Table Id: " + tableId);
 

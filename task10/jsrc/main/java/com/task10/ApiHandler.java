@@ -51,23 +51,22 @@ import static com.syndicate.deployment.model.environment.ValueTransformer.USER_P
 public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
 
-    private final CognitoIdentityProviderClient cognitoClient;
-    private final Map<RouteKey, RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent>> handlersByRouteKey;
-    private final Map<String, String> headersForCORS;
-    private final RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> routeNotImplementedHandler;
-
-    private final DynamoDbEnhancedClient dynamoDbClient;
+    private final CognitoIdentityProviderClient cognitoClient = null;
+    private final Map<RouteKey, RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent>> handlersByRouteKey = null;
+    private final Map<String, String> headersForCORS = null;
+    private final RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> routeNotImplementedHandler = null;
+    private final DynamoDbEnhancedClient dynamoDbClient = null;
 
     private final Logger logger = org.slf4j.LoggerFactory.getLogger(ApiHandler.class);
 
     public ApiHandler() throws JsonProcessingException {
-        dynamoDbClient = DynamoDbEnhancedClient.create();
+       /* dynamoDbClient = DynamoDbEnhancedClient.create();
         logger.info( new ObjectMapper().writeValueAsString(System.getenv())) ;
         this.cognitoClient = initCognitoClient();
         this.handlersByRouteKey = initHandlers();
         this.headersForCORS = initHeadersForCORS();
         this.routeNotImplementedHandler = new RouteNotImplementedHandler();
-
+*/
 
 
     }
@@ -83,17 +82,23 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
         return handlersByRouteKey.getOrDefault(getRouteKey(requestEvent, context), routeNotImplementedHandler);
     }
 
+    public static void main(String[] args) throws JsonProcessingException {
+        ApiHandler apiHandler = new ApiHandler();
+        apiHandler.getRouteKey(new APIGatewayProxyRequestEvent().withPath("/tables/2").withHttpMethod("GET").withRequestContext(new APIGatewayProxyRequestEvent.ProxyRequestContext().withHttpMethod("GET").withPath("/tables/2")),  null);
+    }
+
     private RouteKey getRouteKey(APIGatewayProxyRequestEvent requestEvent, Context context) {
+        /*
         context.getLogger().log("Path: " + requestEvent.getPath());
         try {
             context.getLogger().log(new ObjectMapper().writeValueAsString(requestEvent));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
-        }
-        int beginIndex = requestEvent.getPath().indexOf("/");
-        if(beginIndex == -1) {
-            String pathWithoutId = requestEvent.getPath().substring(0, requestEvent.getPath().indexOf("/" ));
-            context.getLogger().log("Path without id: " + pathWithoutId);
+        }*/
+        int beginIndex = requestEvent.getPath().indexOf("/", 1);
+        if(beginIndex != -1) {
+            String pathWithoutId = requestEvent.getPath().substring(0, requestEvent.getPath().indexOf("/", 1));
+            //context.getLogger().log("Path without id: " + pathWithoutId);
             return new RouteKey(requestEvent.getHttpMethod(), pathWithoutId);
         }
         return new RouteKey(requestEvent.getHttpMethod(), requestEvent.getPath());

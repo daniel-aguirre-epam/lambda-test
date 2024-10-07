@@ -12,6 +12,7 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
@@ -49,6 +50,9 @@ public class PostReservationsHandler implements RequestHandler<APIGatewayProxyRe
             String reservationsId = UUID.randomUUID().toString();
             reservations.setId(reservationsId);
 
+            if (!isTableAvailable(reservations)) {
+                throw new RuntimeException("Table is not available.");
+            }
 
             reservationsTable.putItem(reservations);
 
@@ -58,7 +62,7 @@ public class PostReservationsHandler implements RequestHandler<APIGatewayProxyRe
         } catch (Exception e) {
             context.getLogger().log("Error. "+ e.getMessage() + " " + e.getCause() + " " + Arrays.toString(e.getStackTrace()));
             return new APIGatewayProxyResponseEvent()
-                    .withStatusCode(500)
+                    .withStatusCode(400)
                     .withBody(
                             """
                                   {
@@ -66,6 +70,24 @@ public class PostReservationsHandler implements RequestHandler<APIGatewayProxyRe
                                   }
                                   """);
         }
+    }
+
+    private boolean isTableAvailable(Reservations reservations) {
+        LocalTime startTime = LocalTime.parse( reservations.getSlotTimeStart());
+        LocalTime endTime = LocalTime.parse( reservations.getSlotTimeEnd());
+        return reservationsTable.scan().items().stream().noneMatch(r -> {
+            if (r.getTableNumber() == reservations.getTableNumber() || r.getDate().equals(reservations.getDate())) {
+                return false;
+            }
+            LocalTime anotherStartTime = LocalTime.parse( r.getSlotTimeStart());
+            LocalTime anotherEndTime = LocalTime.parse( r.getSlotTimeEnd());
+            boolean comienzaDuranteOtro = !startTime.isAfter(anotherEndTime) && !startTime.isBefore(anotherStartTime);
+            boolean terminaDuranteOtro = !endTime.isAfter(anotherEndTime) && !endTime.isBefore(anotherStartTime);
+            boolean cubreOtro = startTime.isBefore(anotherStartTime) && endTime.isAfter(anotherEndTime);
+
+            return comienzaDuranteOtro || terminaDuranteOtro || cubreOtro;
+
+        });
     }
 
 }
