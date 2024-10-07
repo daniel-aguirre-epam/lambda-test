@@ -13,7 +13,6 @@
             "dynamodb:Batch*",
             "dynamodb:DeleteItem",
             "dynamodb:Scan",
-
             "cognito-idp:DescribeUserPool",
             "cognito-idp:GetUser",
             "cognito-idp:ListUsers",
@@ -24,7 +23,6 @@
             "cognito-idp:ListUserPoolClients",
             "cognito-idp:AdminRespondToAuthChallenge",
             "cognito-idp:AdminConfirmSignUp",
-
             "ssm:PutParameter",
             "ssm:GetParameter",
             "kms:Decrypt"
@@ -61,14 +59,14 @@
     "username_attributes": [],
     "custom_attributes": [],
     "client": {
-        "client_name": "client-app",
-        "generate_secret": false,
-        "explicit_auth_flows": [
-          "ALLOW_ADMIN_USER_PASSWORD_AUTH",
-          "ALLOW_CUSTOM_AUTH",
-          "ALLOW_USER_SRP_AUTH",
-          "ALLOW_REFRESH_TOKEN_AUTH"
-        ]
+      "client_name": "client-app",
+      "generate_secret": false,
+      "explicit_auth_flows": [
+        "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+        "ALLOW_CUSTOM_AUTH",
+        "ALLOW_USER_SRP_AUTH",
+        "ALLOW_REFRESH_TOKEN_AUTH"
+      ]
     },
     "tags": {}
   },
@@ -145,8 +143,7 @@
           "integration_request_body_template": {},
           "responses": [],
           "integration_responses": [],
-          "default_error_pattern": true,
-          "enable_proxy": true
+          "default_error_pattern": true
         },
         "POST": {
           "authorization_type": "authorizer",
@@ -157,8 +154,21 @@
           "integration_request_body_template": {},
           "responses": [],
           "integration_responses": [],
-          "default_error_pattern": true,
-          "enable_proxy": true
+          "default_error_pattern": true
+        }
+      },
+      "/tables/{tableId}": {
+        "enable_cors": true,
+        "GET": {
+          "authorization_type": "authorizer",
+          "integration_type": "lambda",
+          "lambda_name": "api_handler",
+          "api_key_required": false,
+          "method_request_parameters": {},
+          "integration_request_body_template": {},
+          "responses": [],
+          "integration_responses": [],
+          "default_error_pattern": true
         }
       }
     },
