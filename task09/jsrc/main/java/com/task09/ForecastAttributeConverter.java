@@ -30,6 +30,7 @@ public class ForecastAttributeConverter implements AttributeConverter<Object> {
             } else {
                 return AttributeValue.builder().ss(((List<?>) input).stream()
                         .map(Object::toString)
+                                .sorted()
                         .collect(Collectors.toList())).build();
             }
 
