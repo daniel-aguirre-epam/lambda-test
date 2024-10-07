@@ -1,18 +1,24 @@
 package com.task09;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class WeatherResponse {
 
     private double latitude;
     private double longitude;
+    @JsonProperty("generationtime_ms")
     private double generationtimeMs;
+    @JsonProperty("utc_offset_seconds")
     private int utcOffsetSeconds;
     private String timezone;
+    @JsonProperty("timezone_abbreviation")
     private String timezoneAbbreviation;
     private double elevation;
     private CurrentUnits currentUnits;
     private Current current;
+    @JsonProperty("hourly_units")
     private HourlyUnits hourlyUnits;
     private Hourly hourly;
 
@@ -184,6 +190,7 @@ public class WeatherResponse {
 
     public static class HourlyUnits {
         private String time;
+        @JsonProperty("temperature_2m")
         private String temperature2m;
         private String relativeHumidity2m;
         private String windSpeed10m;
@@ -223,6 +230,7 @@ public class WeatherResponse {
 
     public static class Hourly {
         private List<String> time;
+        @JsonProperty("temperature_2m")
         private List<Double> temperature2m;
         private List<Integer> relativeHumidity2m;
         private List<Double> windSpeed10m;
