@@ -23,9 +23,16 @@ public class ForecastAttributeConverter implements AttributeConverter<Object> {
         } else if (input instanceof Number) {
             return AttributeValue.builder().n(input.toString()).build();
         } else if (input instanceof List) {
-            return AttributeValue.builder().ns(((List<?>) input).stream()
-                    .map(Object::toString)
-                    .collect(Collectors.toSet())).build();
+            if (((List<?>) input).get(0) instanceof Number){
+                return AttributeValue.builder().ns(((List<?>) input).stream()
+                        .map(Object::toString)
+                        .collect(Collectors.toSet())).build();
+            } else {
+                return AttributeValue.builder().ss(((List<?>) input).stream()
+                        .map(Object::toString)
+                        .collect(Collectors.toSet())).build();
+            }
+
         }
         throw new IllegalArgumentException("Unsupported type: " + input.getClass().getName());
     }
