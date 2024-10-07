@@ -143,7 +143,8 @@
           "integration_request_body_template": {},
           "responses": [],
           "integration_responses": [],
-          "default_error_pattern": true
+          "default_error_pattern": true,
+           "enable_proxy": true
         },
         "POST": {
           "authorization_type": "authorizer",
@@ -154,7 +155,8 @@
           "integration_request_body_template": {},
           "responses": [],
           "integration_responses": [],
-          "default_error_pattern": true
+          "default_error_pattern": true,
+          "enable_proxy": true
         }
       },
       "/tables/{tableId}": {
@@ -168,7 +170,8 @@
           "integration_request_body_template": {},
           "responses": [],
           "integration_responses": [],
-          "default_error_pattern": true
+          "default_error_pattern": true,
+          "enable_proxy": true
         }
       }
     },
