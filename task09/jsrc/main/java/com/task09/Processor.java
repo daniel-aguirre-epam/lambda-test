@@ -26,6 +26,7 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -116,7 +117,7 @@ public class Processor implements RequestHandler<APIGatewayV2HTTPEvent, APIGatew
 				table.putItem(weatherForecast);
 				context.getLogger().log("Weather forecast saved to the table");
 			} catch (Exception e) {
-				context.getLogger().log("Error: " + e.getMessage());
+				context.getLogger().log("Error: " + e.getMessage() + " " + e.getCause() + " " + Arrays.toString(e.getStackTrace()));
 				return APIGatewayV2HTTPResponse.builder()
 						.withStatusCode(500)
 						.withBody("Internal server error")
