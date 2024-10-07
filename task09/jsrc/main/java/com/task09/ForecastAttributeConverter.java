@@ -26,7 +26,7 @@ public class ForecastAttributeConverter implements AttributeConverter<Object> {
             if (((List<?>) input).get(0) instanceof Number){
                 return AttributeValue.builder().ns(((List<?>) input).stream()
                         .map(Object::toString)
-                        .collect(Collectors.toSet())).build();
+                        .collect(Collectors.toList())).build();
             } else {
                 return AttributeValue.builder().ss(((List<?>) input).stream()
                         .map(Object::toString)
