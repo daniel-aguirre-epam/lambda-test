@@ -24,13 +24,12 @@ public class ForecastAttributeConverter implements AttributeConverter<Object> {
             return AttributeValue.builder().n(input.toString()).build();
         } else if (input instanceof List) {
             if (((List<?>) input).get(0) instanceof Number){
-                return AttributeValue.builder().ns(((List<?>) input).stream()
-                        .map(Object::toString)
-                        .collect(Collectors.toSet())).build();
+                return AttributeValue.builder().l(((List<?>) input).stream()
+                        .map(Object::toString).map(AttributeValue::fromN)
+                        .collect(Collectors.toList())).build();
             } else {
-                return AttributeValue.builder().ss(((List<?>) input).stream()
-                        .map(Object::toString)
-                                .sorted()
+                return AttributeValue.builder().l(((List<?>) input).stream()
+                        .map(Object::toString).map(AttributeValue::fromS)
                         .collect(Collectors.toList())).build();
             }
 
