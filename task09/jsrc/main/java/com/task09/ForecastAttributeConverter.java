@@ -25,7 +25,7 @@ public class ForecastAttributeConverter implements AttributeConverter<Object> {
         } else if (input instanceof List) {
             return AttributeValue.builder().ns(((List<?>) input).stream()
                     .map(Object::toString)
-                    .collect(Collectors.toList())).build();
+                    .collect(Collectors.toSet())).build();
         }
         throw new IllegalArgumentException("Unsupported type: " + input.getClass().getName());
     }
