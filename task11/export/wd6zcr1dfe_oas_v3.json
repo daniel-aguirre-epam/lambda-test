@@ -17,6 +17,8 @@
   "paths": {
     "/reservations": {
       "get": {
+        "summary": "Method to get all reservations",
+        "description": "Method to get all reservations",
         "responses": {
           "200": {
             "description": "200 response",
@@ -57,6 +59,8 @@
         }
       },
       "post": {
+        "summary": "Method to create a new reservation",
+        "description": "Method to create a new reservation",
         "responses": {
           "200": {
             "description": "200 response",
@@ -156,6 +160,8 @@
     },
     "/tables": {
       "get": {
+        "summary": "Method to get all tables",
+        "description": "Method to get all tables",
         "responses": {
           "200": {
             "description": "200 response",
@@ -196,6 +202,8 @@
         }
       },
       "post": {
+        "summary": "Method to create a new table",
+        "description": "Method to create a new table",
         "responses": {
           "200": {
             "description": "200 response",
@@ -295,6 +303,8 @@
     },
     "/signin": {
       "post": {
+        "summary": "Method to login in the system",
+        "description": "Method to login in the system",
         "responses": {
           "200": {
             "description": "200 response",
@@ -389,6 +399,8 @@
     },
     "/tables/{tableId}": {
       "get": {
+        "summary": "Method to find a specific table by id",
+        "description": "Method to find a specific table by id",
         "parameters": [
           {
             "name": "tableId",
@@ -499,6 +511,8 @@
     },
     "/signup": {
       "post": {
+        "summary": "Method to create a new user",
+        "description": "Method to create a new user",
         "responses": {
           "200": {
             "description": "200 response",
